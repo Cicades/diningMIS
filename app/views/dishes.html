@@ -1,0 +1,101 @@
+<div class="container mt-3">
+    <h3 class="h2 border-bottom pb-3">菜品管理</h3>
+    <div class="row">
+        <form class="col-4">
+            <h5 class="mb-3">添加菜品</h5>
+            <div class="form-group row">
+                <label for="roomNum" class="col-sm-2 col-form-label pr-0">菜名</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="roomNum">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="roomName" class="col-sm-2 col-form-label pr-0">价格</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="roomName">
+                </div>
+            </div>
+            <div class="form-group row pr-3">
+   				<label for="category" class="col-sm-2 col-form-label pr-0">分类</label>
+				<div class="col-sm-10">
+					<select class="form-control" id="category">
+    					  <option>1</option>
+    					  <option>2</option>
+    					  <option>3</option>
+    					  <option>4</option>
+    					  <option>5</option>
+    				</select>
+				</div>
+  			</div>            
+  			<button type="button" class="btn btn-info btn-block col-sm-10 float-right">添加</button>
+        </form>
+      	<div class="col-8">
+      	<nav aria-label="Page navigation example" class="row">
+      		<div class="col-sm-3"> 
+      			<select class="custom-select form-control-sm" id="inlineFormCustomSelect">
+        				<option selected>分类</option>
+        				<option value="1">饮料</option>
+        				<option value="2">凉菜</option>
+        				<option value="3">主食</option>
+      			</select>
+      		</div>
+  				<ul class="pagination justify-content-end col-sm-9">
+  				  <li class="page-item">
+  				    <a class="page-link" href="#" aria-label="Previous">
+  				      <span aria-hidden="true">&laquo;</span>
+  				      <span class="sr-only">Previous</span>
+  				    </a>
+  				  </li>
+  				  <li class="page-item"><a class="page-link" href="#">1</a></li>
+  				  <li class="page-item"><a class="page-link" href="#">2</a></li>
+  				  <li class="page-item"><a class="page-link" href="#">3</a></li>
+  				  <li class="page-item">
+  				    <a class="page-link" href="#" aria-label="Next">
+  				      <span aria-hidden="true">&raquo;</span>
+  				      <span class="sr-only">Next</span>
+  				    </a>
+  				  </li>
+  				</ul>
+		</nav>
+      		<table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">菜名</th>
+                <th scope="col">价格</th>
+                <th scope="col">分类</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>咖啡</th>
+                <td>&yen;10.00</td>
+                <td scope="row">饮料</td>
+                <td>
+                	<button type="button" class="btn btn-sm btn-danger">删除</button>
+					<button type="button" class="btn btn-sm btn-warning">修改</button>
+                </td>
+            </tr>
+            <tr>
+                <th>披萨</th>
+                <td>&yen;30.00</td>
+                <td scope="row">主食</td>
+                <td>
+                	<button type="button" class="btn btn-sm btn-danger">删除</button>
+					<button type="button" class="btn btn-sm btn-warning">修改</button>
+                </td>
+            </tr>
+            <tr>
+                <th>拌黄瓜</th>
+                <td>&yen;25.00</td>
+                <td scope="row">凉菜</td>
+                <td>
+                	<button type="button" class="btn btn-sm btn-danger">删除</button>
+					<button type="button" class="btn btn-sm btn-warning">修改</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+      	</div>
+    </div>
+</div>
