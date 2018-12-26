@@ -5,7 +5,11 @@
 			templateUrl: 'app/views/dishes.html',
 			controller: 'order.dishesController'
 		})
-	}]).controller('order.dishesController', ['$scope', function($scope){
-		console.log('jjja')
+	}]).controller('order.dishesController', ['$scope', '$http', function($scope, $http){
+		$http.post('https://dev.maple007.top/admin/api/graphql', {'query': '{food{foods{id name image unitPrice categoryId}}}'}).then( 
+			res => {
+				$scope.foodList = res.data.data.food.foods
+				NProgress.done()
+			} )
 	}])
 }(angular))

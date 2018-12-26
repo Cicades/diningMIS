@@ -6,6 +6,6 @@
 			controller: 'order.accountController'
 		})
 	}]).controller('order.accountController', ['$scope', function($scope){
-		console.log('jjja')
+		
 	}])
 }(angular))

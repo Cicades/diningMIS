@@ -1,0 +1,40 @@
+<div class="container mt-3">
+    <h3 class="h2 border-bottom pb-3">菜品种类管理</h3>
+    <div class="row">
+        <form class="col-5">
+            <h5 class="mb-3">添加种类</h5>
+            <div class="form-group row">
+                <label for="roomNum" class="col-sm-2 col-form-label pr-0">类型</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="roomNum">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="roomName" class="col-sm-2 col-form-label pr-0">描述</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="roomName">
+                </div>
+            </div>
+            <button type="button" class="btn btn-info btn-block col-sm-10 float-right">添加</button>
+        </form>
+        <table class="table table-hover col-7">
+            <thead>
+            <tr>
+                <th scope="col">序号</th>
+                <th scope="col">类型</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="cat in categories | limitTo:6">
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{cat.name}}</td>
+                <td>
+                	<button type="button" class="btn btn-sm btn-danger">删除</button>
+					<button type="button" class="btn btn-sm btn-warning">修改</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

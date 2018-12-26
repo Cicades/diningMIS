@@ -6,7 +6,8 @@
 		'order.dishesController',
 		'order.accountController',
 		'order.orderController',
-		'order.navAutofocus'
+		'order.navAutofocus',
+		'order.categoryController'
 		]);
 	myApp.config(['$routeProvider',function($routeProvider) {
 		$routeProvider.otherwise({redirectTo: '/dashboard'});

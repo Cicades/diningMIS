@@ -15,5 +15,6 @@
 			$document[0].body.appendChild(script);
 		}
 		addChart($document);
+		NProgress.done()
 	}])
 }(angular))

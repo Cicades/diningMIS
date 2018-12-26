@@ -67,31 +67,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th>咖啡</th>
-                <td>&yen;10.00</td>
-                <td scope="row">饮料</td>
+            <tr ng-repeat="food in foodList | limitTo: 5">
+                <th>{{food.name}}</th>
+                <td>{{food.unitPrice | currency: '&yen;' : 2}}</td>
+                <td scope="row">{{food.categoryId}}</td>
                 <td>
                 	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
-                </td>
-            </tr>
-            <tr>
-                <th>披萨</th>
-                <td>&yen;30.00</td>
-                <td scope="row">主食</td>
-                <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
-                </td>
-            </tr>
-            <tr>
-                <th>拌黄瓜</th>
-                <td>&yen;25.00</td>
-                <td scope="row">凉菜</td>
-                <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
+					         <button type="button" class="btn btn-sm btn-warning">修改</button>
                 </td>
             </tr>
             </tbody>

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" ng-app="orderApp">
 <head>
@@ -7,12 +6,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>在线订餐管理系统</title>
+    <script src="bower_components/nprogress/nprogress.js"></script>
+    <link rel="stylesheet" href="bower_components/nprogress/nprogress.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href="app/css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="app/css/home.css">
     <script src="bower_components/angular/angular.js"></script>
 </head>
-
 <body ng-controller="mainController">
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">在线订餐管理系统</a>
@@ -45,6 +45,12 @@
                             <span data-feather="shopping-cart"></span>
                             菜品管理
                         </a>
+                    </li>                    
+                    <li class="nav-item mb-3" autofocus>
+                        <a class="nav-link" href="#!/category">
+                            <span data-feather="archive"></span>
+                            种类管理
+                        </a>
                     </li>
                     <li class="nav-item mb-3" autofocus>
                         <a class="nav-link" href="#!/order">
@@ -68,15 +74,20 @@
 <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/feather.js"></script>
 <script>
+    NProgress.start()
     feather.replace()
 </script>
 <script src="bower_components/chart.js"></script>
 <script type="text/javascript" src="app/controllers/order.dashboardController.js"></script>
 <script type="text/javascript" src="app/controllers/order.roomController.js"></script>
+<script type="text/javascript" src="app/controllers/order.categoryController.js"></script>
 <script type="text/javascript" src="app/controllers/order.dishesController.js"></script>
 <script type="text/javascript" src="app/controllers/order.accountController.js"></script>
 <script type="text/javascript" src="app/controllers/order.orderController.js"></script>
 <script type="text/javascript" src="app/controllers/order.navAutofocus.js"></script>
 <script type="text/javascript" src="app/controllers/orderController.js"></script>
+<script type="text/javascript">
+    NProgress.done()
+</script>
 </body>
 </html>

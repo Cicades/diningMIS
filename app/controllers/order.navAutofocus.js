@@ -12,6 +12,7 @@
 				iElm.on('click',function () {
 					iElm.parent().children().children().removeClass('active');
 					aLink.addClass('active');
+					NProgress.start()
 				})
 			}
 		};
