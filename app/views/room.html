@@ -1,35 +1,45 @@
 <div class="container mt-3">
     <h3 class="h2 border-bottom pb-3">房间管理</h3>
+    <div ng-if='message !== null' ng-class="{true:'alert alert-success', false: 'alert alert-danger'}[operationFlag]" role="alert" ng-bind="message">
+    </div>
     <div class="row">
-        <form class="col-md-5 d-none d-sm-block">
+        <div class="col-md-5 d-none d-sm-block">
             <h5 class="mb-3">添加房间</h5>
-            <div class="form-group row">
-                <label for="roomNum" class="col-sm-2 col-form-label pr-0">房间号</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomNum">
-                </div>
-            </div>
             <div class="form-group row">
                 <label for="roomName" class="col-sm-2 col-form-label pr-0">房间名</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomName">
+                    <input type="text" class="form-control" id="roomName" ng-model="roomNum">
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="roomFloor" class="col-sm-2 col-form-label pr-0">楼层</label>
+            <div class="form-group row pr-3">
+                <label for="category" class="col-sm-2 col-form-label pr-0">楼层</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomFloor">
+                    <select class="form-control ml-1" ng-model="roomFloor">
+                        <option ng-repeat="floor in floors" ng-value="floor">{{floor}}</option>     
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="roomStatus" class="col-sm-2 col-form-label pr-0">状态</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomStatus">
-                </div>
+                <select class="form-control col-sm-9 mx-auto" ng-model="roomStatus">
+                  <option ng-value="'IDLE'">空闲</option>
+                  <option ng-value="'BUSY'">繁忙</option>
+                </select>
             </div>
-            <button type="button" class="btn btn-info btn-block col-sm-10 float-right">添加</button>
-        </form>
-        <table class="table table-hover col-md-7 col-sm-12">
+            <a role="button" class="btn btn-info btn-block col-sm-10 float-right" ng-click="saveRoom()">保存</a>
+        </div>
+        <div class="col-7">
+        <div class="nav-floor row">
+            <label class="mr-3">楼层</label>
+            <nav>
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#!/room/operation/view/floor/1">first</a></li>
+                <li ng-class="{'page-item active': index == floor}" ng-repeat="index in floors"><a class="page-link" ng-href="{{'#!/room/operation/view/floor/'+index}}">{{index}}</a></li>
+                <li class="page-item"><a class="page-link" href="#!/room/operation/view/floor/9">last</a></li>
+              </ul>
+            </nav>
+        </div>
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">序号</th>
@@ -46,11 +56,12 @@
                 <td>{{room.floor}}</td>
                 <td>{{room.status === 'IDLE' ? '空闲' : '繁忙'}}</td>
                 <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
+                    <a role="button" class="btn btn-sm btn-danger" ng-click="delRoom(room.id)">删除</a>
+                    <a role="button" class="btn btn-sm btn-warning" ng-click="updateRoom(room)">修改</a>
                 </td>
             </tr>
             </tbody>
         </table>
+        </div>
     </div>
 </div>

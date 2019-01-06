@@ -7,20 +7,43 @@
 </head>
 <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="app/css/index.css">
+<link rel="stylesheet" type="text/css" href="bower_components/animate.css/animate.min.css">
 <body>
 <div class="container-fluid">
-  <div class="row">
-    <form class="col-md-6 col-lg-4 mx-auto" id="loginForm" action="home.html">
+  <div class="login-box">
+    <form id="loginForm" action="">
       <img src="assets/images/avatar.jpg" id="avatar" class="rounded-circle border border-light shadow">
-      <div class="form-group">
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="输入账号">
+      <div class="alert alert-danger" role="alert">
       </div>
       <div class="form-group">
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="输入密码">
+        <input type="text" class="form-control" placeholder="输入账号" name="username" id="username">
       </div>
-    <button type="submit" class="btn btn-primary btn-block">登录</button>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="输入密码" name="password" id="password">
+      </div>
+    <button type="submit" class="btn btn-primary btn-block" id="submit">登录</button>
     </form>
   </div>
 </div>
 </body>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+      $('#loginForm').submit(function(e) {
+        e.preventDefault()
+        let user = {username: $('#username').val(),password: $('#password').val()}
+        let url = `https://dev.maple007.top/admin/api/graphql?query=query login($user: UserInputType!) {user{token(user:$user)}}&variables={"user": {"username": "${user.username}","password": "${user.password}"
+        }}&operationName=login`
+        $.post(url).then( res => {
+          let token = res.data.user.token
+          if (!token) {
+            $('.alert').show().text('用户名或密码错误！')
+            return $('.login-box').addClass('animated shake')
+          }
+          localStorage.setItem('userToken', token)
+          window.location.href = '/home.html'
+        }, () => { $('.alert').show().text('系统繁忙，请稍后再试！') } )
+      });
+    })
+</script>
 </html>

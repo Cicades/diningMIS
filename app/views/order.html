@@ -1,56 +1,109 @@
 <div class="container mt-3">
     <h3 class="h2 border-bottom pb-3">订单管理</h3>
+    <div ng-if='message !== null' ng-class="{true:'alert alert-success', false: 'alert alert-danger'}[operationFlag]" role="alert" ng-bind="message">
+    </div>
     <div class="row">
         <form class="col-12 col-md-5 mb-3 mb-md-0">
             <h5 class="mb-3">添加订单</h5>
-            <div class="form-group row">
-                <label for="roomNum" class="col-sm-2 col-form-label pr-0">房间号</label>
+            <div class="form-group row pr-3">
+                <label for="category" class="col-sm-2 col-form-label pr-0">房间号</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomNum">
+                    <select class="form-control" ng-model="roomId">
+                        <option ng-repeat="room in roomList track by room.id" ng-value="room.id">{{room.name}}</option>     
+                    </select>
                 </div>
-            </div>
+            </div>      
   			<div class="form-group row">
-    			<label for="exampleFormControlTextarea1" class="col-sm-2">订单内容</label>
+    			<label for="exampleFormControlTextarea1" class="col-sm-2">订单</label>
     			<div class="col-sm-10">
-    				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <button type="button" class="btn btn-primary w-100 btn-warning" data-toggle="modal" data-target="#orderForm" ng-click="openModal()">
+                        创建订单
+                    </button>
     			</div>
   			</div>
-            <button type="button" class="btn btn-info btn-block col-sm-10 float-right">添加</button>
+            <button type="button" class="btn btn-info btn-block col-sm-10 float-right">提交</button>
         </form>
         <table class="table table-hover col-12 col-md-7">
             <thead>
             <tr>
                 <th scope="col">房间号</th>
+                <th scope="col">服务员id</th>
                 <th scope="col">订单内容</th>
+                <th scope="col">订单状态</th>
                 <th scope="col">操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>鸣人</td>
+            <tr ng-repeat="order in orders">
+                <th scope="row">{{order.roomName}}</th>
+                <td>{{order.waiterId}}</td>
+                <td><span class="d-inline-block" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100px" data-toggle="tooltip" data-placement="top" title="{{order.foodContent}}" data-container="span">{{order.foodContent}}</span></td>
+                <td>{{order.status == 'FINISHED' ? '已结账':(order.status == 'CREATED' ? '已创建': '正忙')}}</td>
                 <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>佐助</td>
-                <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>小樱</td>
-                <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
+                	<button type="button" class="btn btn-sm btn-danger" ng-click="deleteOrder(order.id)">删除</button>
+					<button type="button" class="btn btn-sm btn-warning">修改状态</button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+</div>
+<!-- modal -->
+<div class="modal fade container" id="orderForm" tabindex="-1" role="dialog" aria-labelledby="orderFormLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderFormLabel">修改订单</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" ng-click="closeModal()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6 class="h6 my-2">已添加</h6>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-around align-items-center">
+            <input type="checkbox" name="food">
+              <div class="food col-8 d-flex justify-content-around align-items-center">
+                  <span class="col-6">菜名</span>
+                  <span>单价</span>
+                  <span>数量</span>
+              </div>
+            <div col-auto>操作</div>
+          </li> 
+          <li class="list-group-item d-flex justify-content-around align-items-center" ng-repeat="food in orderFoodList">
+            <input type="checkbox" name="food">
+              <div class="food col-8 d-flex justify-content-around align-items-center">
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap" class="col-6" data-toggle="tooltip" data-placement="top" title="{{food.name}}" data-container="span">{{food.name}}</span>
+                 <span>{{food.unitPrice | number: 2 | currency:'￥'}}</span>
+                  <span>{{food.count}}</span>
+              </div>
+            <div col-auto><a ng-click="removeFood($index)" href="">移除</a></div>
+          </li> 
+        </ul>
+        <h6 class="h6 my-2">尚未添加</h6>
+        <!-- 搜索框 -->
+        <input type="search" class="form-control my-3 mx-auto" placeholder="搜索" ng-model="keywords" ng-keyup="modalSearch()">
+         <li class="list-group-item d-flex justify-content-around align-items-center">
+            <input type="checkbox" name="food">
+              <div class="food col-8 d-flex justify-content-around align-items-center">
+                  <span class="col-6">菜名</span>
+                  <span>单价</span>
+              </div>
+            <div col-auto>操作</div>
+          </li>         
+          <li class="list-group-item d-flex justify-content-around align-items-center" ng-repeat="food in foodList">
+            <input type="checkbox" name="food">
+              <div class="food col-8 d-flex justify-content-around align-items-center">
+                  <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap" class="col-6" data-toggle="tooltip" data-placement="top" title="{{food.name}}" data-container="span">{{food.name}}</span>
+                  <span>{{food.unitPrice | number: 2 | currency:'￥'}}</span>
+              </div>
+            <div col-auto><a href="" ng-click="addFood(food)">添加</a></div>
+          </li> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="closeModal()">关闭</button>
+        <button type="button" class="btn btn-primary" ng-click="createOrder()">保存</button>
+      </div>
+    </div>
+  </div>
 </div>

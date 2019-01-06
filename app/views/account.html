@@ -1,63 +1,49 @@
 <div class="container mt-3">
     <h3 class="h2 border-bottom pb-3">账户管理</h3>
+    <div ng-if='message !== null' ng-class="{true:'alert alert-success', false: 'alert alert-danger'}[operationFlag]" role="alert" ng-bind="message">
+    </div>
     <div class="row">
         <form class="col-5">
             <h5 class="mb-3">添加账户</h5>
             <div class="form-group row">
                 <label for="roomNum" class="col-sm-2 col-form-label pr-0">用户名</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomNum">
+                    <input type="text" class="form-control" id="roomNum" ng-model="username" autocomplete="false">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="roomName" class="col-sm-2 col-form-label pr-0">密码</label>
+                <label for="roomName" class="col-sm-2 col-form-label pr-0" >密码</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomName">
+                    <input type="password" class="form-control" id="roomName" autocomplete="false" ng-model="password">
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="roomFloor" class="col-sm-2 col-form-label pr-0">类型</label>
+            <div class="form-group row pr-3">
+                <label for="category" class="col-sm-2 col-form-label pr-0">分类</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="roomFloor">
+                    <select class="form-control" ng-model="userType">
+                        <option value="WAITER" ng-selected="userType=='WAITER'">WAITER</option>     
+                        <option value="ROOT" ng-selected="userType=='ROOT'">ROOT</option>     
+                        <option value="ADMIN" ng-selected="userType=='ADMIN'">ADMIN</option>     
+                    </select>
                 </div>
             </div>
-            <button type="button" class="btn btn-info btn-block col-sm-10 float-right">添加</button>
+            <button type="button" class="btn btn-info btn-block col-sm-10 float-right" ng-click="addWaiter()">保存</button>
         </form>
         <table class="table table-hover col-7">
             <thead>
             <tr>
                 <th scope="col">用户名</th>
-                <th scope="col">密码</th>
                 <th scope="col">类型</th>
                 <th scope="col">操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>鸣人</td>
-                <td>忙碌</td>
+            <tr ng-repeat="user in users">
+                <th scope="row">{{user.username}}</th>
+                <td>{{user.type}}</td>
                 <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>佐助</td>
-                <td>空闲</td>
-                <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>小樱</td>
-                <td>点餐中</td>
-                <td>
-                	<button type="button" class="btn btn-sm btn-danger">删除</button>
-					<button type="button" class="btn btn-sm btn-warning">修改</button>
+                	<button type="button" class="btn btn-sm btn-danger" ng-click='deleteUser(user.id)'>删除</button>
+					<button type="button" class="btn btn-sm btn-warning" ng-click="changePassword(user)">修改密码</button>
                 </td>
             </tr>
             </tbody>

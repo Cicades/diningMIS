@@ -1,6 +1,7 @@
 (function (angular) {
 	var myApp = angular.module('orderApp', [
 		'ngRoute',
+		'graphql',
 		'order.dashboardController',
 		'order.roomController',	
 		'order.dishesController',
@@ -14,5 +15,8 @@
 	}]);
 	myApp.controller('mainController', ['$scope', function($scope){
 			$scope.test = true;
+			$scope.logout = function () {
+				localStorage.setItem('userToken', null)
+			}
 		}]);
 }(angular))

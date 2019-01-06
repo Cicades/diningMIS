@@ -19,7 +19,7 @@
     <input class="form-control form-control-dark w-100 rounded mx-3" type="text" placeholder="搜索" aria-label="Search">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="index.html">退出</a>
+            <a class="nav-link" href="/" ng-click="logout()">退出</a>
         </li>
     </ul>
 </nav>
@@ -35,23 +35,17 @@
                         </a>
                     </li>
                     <li class="nav-item mb-3" autofocus>
-                        <a class="nav-link" href="#!/room">
+                        <a class="nav-link" href="#!/room/operation/view/floor/1">
                             <span data-feather="home"></span>
                             房间管理
                         </a>
                     </li>
                     <li class="nav-item mb-3" autofocus>
-                        <a class="nav-link" href="#!/dishes">
+                        <a class="nav-link" href="#!/dishes/page/1">
                             <span data-feather="shopping-cart"></span>
                             菜品管理
                         </a>
                     </li>                    
-                    <li class="nav-item mb-3" autofocus>
-                        <a class="nav-link" href="#!/category">
-                            <span data-feather="archive"></span>
-                            种类管理
-                        </a>
-                    </li>
                     <li class="nav-item mb-3" autofocus>
                         <a class="nav-link" href="#!/order">
                             <span data-feather="file"></span>
@@ -78,6 +72,11 @@
     feather.replace()
 </script>
 <script src="bower_components/chart.js"></script>
+<script type="text/javascript" src="assets/lib/popper.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/twbs-pagination/jquery.twbsPagination.min.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="app/controllers/order.graphql.js"></script>
 <script type="text/javascript" src="app/controllers/order.dashboardController.js"></script>
 <script type="text/javascript" src="app/controllers/order.roomController.js"></script>
 <script type="text/javascript" src="app/controllers/order.categoryController.js"></script>
@@ -87,6 +86,10 @@
 <script type="text/javascript" src="app/controllers/order.navAutofocus.js"></script>
 <script type="text/javascript" src="app/controllers/orderController.js"></script>
 <script type="text/javascript">
+    //初始化tooltip
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
     NProgress.done()
 </script>
 </body>
