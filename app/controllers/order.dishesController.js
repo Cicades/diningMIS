@@ -13,8 +13,8 @@
 		$scope.totalPages = 10 //分页初始页面数
 		//初始化分页
 		let paginationInit = function () {
-			// $('.pagination').remove()
-			// $('#paginationBox').append('<ul class="pagination justify-content-end col-sm-9"></ul>')
+			$('.pagination').remove()
+			$('#paginationBox').append('<ul class="pagination justify-content-end col-sm-9"></ul>')
 			$('.pagination').twbsPagination({
 			    currentPage: $scope.currentPage == 0 ? 1:$scope.currentPage,
 			    totalPages:  $scope.totalPages,
@@ -22,7 +22,7 @@
 			    last: "未页",
 			    prev: '上一页',
 			    next: '下一页',
-			    startPage: $scope.currentPage <= $scope.totalPages ? $scope.currentPage:$scope.totalPages - 1,
+			    startPage: $scope.currentPage <= $scope.totalPages ? $scope.currentPage:$scope.totalPages,
 			    // startPage: $scope.currentPage,
 			    initiateStartPageClick: false,
 			    // visiblePages:totalPages>10?10:totalPages,//解决当totalPages小于visiblePages页码变负值的bug
@@ -35,14 +35,16 @@
 			})
 		}
 		let getData = function (page) {
-			let pageSize = 10
-			let offset = 10*(page-1)
+			let pageSize = 10 //单页展示数
 			$graphql.getData(`{food{foods(limit:200,offset:0){id}}}`).then( res => {
 				let length = res.data.data.food.foods.length
 				$scope.totalPages = Math.ceil( length / pageSize)
+				page = page <= $scope.totalPages ? page : $scope.totalPages
+				let offset = 10 * (page-1) //数据偏移数
 				$graphql.getData(`{food{foods(limit:${pageSize},offset:${offset}){id categoryId image name unitPrice}}}`).then( res => {
 					$scope.foods = res.data.data.food.foods
 					$scope.foodList = res.data.data.food.foods
+					console.log($scope.foodList)
 					paginationInit()
 					return $graphql.getData('{food{categories{id name}}}')
 				} ).then( res => {
